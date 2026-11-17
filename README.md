@@ -1,21 +1,24 @@
-# roblox-brainrot-01 starter
+[![make.fun · roblox-brainrot-01](https://make.fun/badge/roblox-brainrot-01.svg)](https://make.fun/bounty/roblox-brainrot-01?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
+[![rank](https://make.fun/badge/roblox-brainrot-01/godanaaa/roblox-brainrot-01-entry/rank.svg)](https://make.fun/bounty/roblox-brainrot-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
+[![reward](https://make.fun/badge/roblox-brainrot-01/godanaaa/roblox-brainrot-01-entry/reward.svg)](https://make.fun/bounty/roblox-brainrot-01?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
 
-A working entry for make.fun's "Make the best AI Roblox brainrot game" bounty (roblox-brainrot-01), laid out as your
-repository: a Rojo project whose game is a grey square that moves with the arrow keys. It is a starting point, not a
-winner, and not yet the 3D game the bounty asks for: its square is drawn on the screen, not in Roblox's 3D world.
+# BRAINROT MAYHEM
 
-- `main.ts` (Node 22, standard library only) hands the game in: it copies `game.rbxl`, `src/`, `screenshots/` and
-  `PLAY.json` to `/output`, leaving out every name that starts with a dot (such as `.gitkeep` or `.DS_Store`, which
-  fail an entry), and writes `/output/dossier.json` with `vendor/makefun-roblox.ts`, the kit's copy, unchanged.
-- `game.rbxl` is the place Rojo builds from `src/` and `default.project.json`; `screenshots/` holds three captures of
-  it; `PLAY.json` names no place yet, so the gate refuses the starter as it stands until it names your published one.
-- One of your screenshots must also be your game's first thumbnail on Roblox: the same picture, uploaded on the
-  Creator Dashboard with your game's icon.
-- `TOUR.json` is an example of the optional tour: for each screenshot, the keys that bring the game to that screen.
+A 3D Roblox brainrot game built for [make.fun's "Make the best AI Roblox brainrot game" bounty](https://make.fun/bounty/roblox-brainrot-01) ($1,000 in USDC).
+
+Catch weirdos. Build your base. Survive the chaos. A normal neighbourhood where a ridiculous chaos event fires every 20-60 seconds - Banana Rain, Giant Player, Tiny People, and the ultra-rare BRAINROT event. Catch 12 original brainrots, place them on your base plots, earn Meme Coins every second, climb the rarity ladder, and unlock pets, transformations, mini-games, secrets, and daily challenges.
+
+- Play it: https://www.roblox.com/games/110997764384288
+- `main.ts` (Node 22, standard library only) hands the game in: it copies `game.rbxl`, `src/`, `screenshots/` and `PLAY.json` to `/output` and writes `/output/dossier.json` with `vendor/makefun-roblox.ts`, the kit's copy, unchanged.
+- `game.rbxl` is the place Rojo builds from `src/` and `default.project.json`; `screenshots/` holds four captures of it; `PLAY.json` names the published place.
+- One of the screenshots is also the game's first thumbnail on Roblox: the same picture, uploaded on the Creator Dashboard with the game's icon.
 
 Run it as the grader does, writing `out/` in place of `/output`:
 
     mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-The rules are on the bounty's page (/bounty/roblox-brainrot-01) and in the kit's RULES.txt,
-which gives every command in order (Before you submit, then Enter).
+Build the place with Rojo:
+
+    rojo build default.project.json -o game.rbxl
+
+Referral: https://make.fun/r/3wc56acn
