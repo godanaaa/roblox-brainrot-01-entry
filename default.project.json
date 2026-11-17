@@ -1,5 +1,5 @@
 {
-  "name": "house-dodge",
+  "name": "brainrot-mayhem",
   "tree": {
     "$className": "DataModel",
     "Players": {
@@ -12,6 +12,11 @@
         "$path": "src/server"
       }
     },
+    "ReplicatedStorage": {
+      "Modules": {
+        "$path": "src/shared"
+      }
+    },
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": {
@@ -21,17 +26,20 @@
     },
     "Workspace": {
       "$properties": {
-        "FilteringEnabled": true
+        "FilteringEnabled": true,
+        "StreamingEnabled": true,
+        "StreamingTargetRadius": 256
       },
       "Baseplate": {
         "$className": "Part",
         "$properties": {
           "Anchored": true,
           "Color": [
-            0.38823,
-            0.37254,
-            0.38823
+            0.36,
+            0.66,
+            0.34
           ],
+          "Material": "Grass",
           "Locked": true,
           "Position": [
             0,
@@ -48,15 +56,12 @@
     },
     "Lighting": {
       "$properties": {
-        "Ambient": [
-          0,
-          0,
-          0
-        ],
-        "Brightness": 2,
+        "Ambient": [0.42, 0.45, 0.55],
+        "Brightness": 2.5,
+        "ClockTime": 14,
         "GlobalShadows": true,
         "Outlines": false,
-        "Technology": "Voxel"
+        "Technology": "ShadowMap"
       }
     },
     "SoundService": {
