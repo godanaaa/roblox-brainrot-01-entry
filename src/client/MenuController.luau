@@ -88,5 +88,6 @@ function Menu.Init(player,hud)
  local function openPanel(panel) showMenu(true); if panel=="Lock" then lockPanel() elseif panel=="Index" then indexPanel() elseif panel=="Shop" then shop() elseif panel=="Pets" then pets() elseif panel=="Emotes" then emotes() elseif panel=="Upgrades" then upgrades() elseif panel=="Rebirth" then rebirthPanel() end end
  local entries={{"Shop",Enum.KeyCode.B},{"Pets",Enum.KeyCode.P},{"Emotes",Enum.KeyCode.G},{"Rebirth",Enum.KeyCode.R},{"Upgrades",Enum.KeyCode.U},{"Lock",Enum.KeyCode.L}}
  for _,pair in ipairs(entries) do CAS:BindAction("Quick"..pair[1],function(_,state) if state==Enum.UserInputState.Begin then openPanel(pair[1]); return Enum.ContextActionResult.Sink end; return Enum.ContextActionResult.Pass end,false,pair[2]) end
+ showMenu(true)
 end
 return Menu
