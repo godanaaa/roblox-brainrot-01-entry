@@ -11,6 +11,7 @@ function Effects.Init(player)
   if type(effect)~="table" then return end
   if effect.Kind=="IncomeTick" then
    local model=effect.Model; local adornee=model and (model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")); if not adornee or not adornee:IsDescendantOf(workspace) then return end
+   local character=player.Character; local root=character and character:FindFirstChild("HumanoidRootPart"); if not root or (root.Position-adornee.Position).Magnitude>20 then return end
    local tag=Instance.new("BillboardGui"); tag.Name="IncomeTick"; tag.Size=UDim2.fromOffset(110,38); tag.StudsOffset=Vector3.new(0,4,0); tag.AlwaysOnTop=true; tag.Adornee=adornee; tag.Parent=player:WaitForChild("PlayerGui")
    local text=Instance.new("TextLabel"); text.Size=UDim2.fromScale(1,1); text.BackgroundTransparency=1; text.Text="+$"..tostring(effect.Amount or 0); text.TextColor3=Color3.fromRGB(115,255,140); text.TextStrokeTransparency=.2; text.TextScaled=true; text.Font=Enum.Font.FredokaOne; text.Parent=tag
    local tween=game:GetService("TweenService"):Create(tag,TweenInfo.new(1.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{StudsOffset=Vector3.new(0,7,0)}); tween:Play(); game:GetService("TweenService"):Create(text,TweenInfo.new(1.5),{TextTransparency=1,TextStrokeTransparency=1}):Play(); task.delay(1.6,function()if tag.Parent then tag:Destroy()end end); return
