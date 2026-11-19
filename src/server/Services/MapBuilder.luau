@@ -36,6 +36,16 @@ function MapBuilder.Build()
  for i=-9,9 do part(map,"Lane Dash",Vector3.new(8,.12,.7),Vector3.new(i*20,.58,0),Color3.fromRGB(255,225,90),Enum.Material.Neon) end
  for _,z in ipairs({-15,15}) do for i=-5,5 do part(map,"Crosswalk Stripe",Vector3.new(1,.14,11),Vector3.new(i*2,.62,z),Color3.fromRGB(245,245,240)) end end
  for _,x in ipairs({-15,15}) do for i=-5,5 do part(map,"Crosswalk Stripe",Vector3.new(11,.14,1),Vector3.new(x,.62,i*2),Color3.fromRGB(245,245,240)) end end
+ -- A narrow canal frames the east edge of town; the crossing leaves the radial
+ -- plots and the existing street grid in their original positions.
+ local canal=part(map,"East Canal",Vector3.new(24,.5,380),Vector3.new(225,-.1,0),Color3.fromRGB(55,177,226),Enum.Material.Glass); canal.Transparency=.18
+ for _,x in ipairs({209,241}) do part(map,"Canal Bank",Vector3.new(4,1,380),Vector3.new(x,.25,0),Color3.fromRGB(192,184,157),Enum.Material.Rock) end
+ local bridge=Instance.new("Model"); bridge.Name="East Canal Bridge"; bridge.Parent=map
+ part(bridge,"Bridge Deck",Vector3.new(54,2,30),Vector3.new(225,1.1,0),Color3.fromRGB(142,100,65),Enum.Material.Wood)
+ for _,x in ipairs({203,247}) do part(bridge,"Bridge Rail",Vector3.new(2,4,30),Vector3.new(x,4,0),Color3.fromRGB(239,217,167),Enum.Material.Wood) end
+ for _,z in ipairs({-11,11}) do for x=207,243,12 do part(bridge,"Bridge Post",Vector3.new(2,5,2),Vector3.new(x,4,z),Color3.fromRGB(106,73,53),Enum.Material.Wood) end end
+ -- Broad green rises define the outer districts without covering the plots.
+ for _,spec in ipairs({{Vector3.new(-205,13,-185),Vector3.new(80,28,70)},{Vector3.new(-205,10,185),Vector3.new(75,22,64)},{Vector3.new(175,12,190),Vector3.new(76,25,70)}}) do local hill=part(map,"Rolling Hill",spec[2],spec[1],Color3.fromRGB(105,180,91),Enum.Material.Grass); hill.Shape=Enum.PartType.Ball end
  for _,z in ipairs({-20,20}) do part(map,"Sidewalk",Vector3.new(400,1,5),Vector3.new(0,.1,z),Color3.fromRGB(205,199,177),Enum.Material.Concrete) end
  -- Neighborhood connectors tie the house rows and community buildings into the central streets.
  for _,z in ipairs({-125,-55,55,125}) do
@@ -72,7 +82,7 @@ function MapBuilder.Build()
  part(school,"Swing Frame Left",Vector3.new(1,12,1),Vector3.new(-115,6,112),Color3.fromRGB(75,75,85),Enum.Material.Metal); part(school,"Swing Frame Right",Vector3.new(1,12,1),Vector3.new(-75,6,112),Color3.fromRGB(75,75,85),Enum.Material.Metal); part(school,"Swing Beam",Vector3.new(42,1,1),Vector3.new(-95,12,112),Color3.fromRGB(75,75,85),Enum.Material.Metal)
  for _,x in ipairs({-105,-85}) do part(school,"Swing Chain",Vector3.new(.2,7,.2),Vector3.new(x,8,112),Color3.fromRGB(180,180,190),Enum.Material.Metal); part(school,"Swing Seat",Vector3.new(5,.5,2),Vector3.new(x,4.2,112),Color3.fromRGB(255,90,90)) end
  part(school,"Slide Ladder",Vector3.new(4,7,4),Vector3.new(-55,3.5,112),Color3.fromRGB(70,125,240),Enum.Material.Metal); local slide=part(school,"Slide",Vector3.new(5,1,14),Vector3.new(-55,2,103),Color3.fromRGB(255,115,60),Enum.Material.Metal); slide.Orientation=Vector3.new(25,0,0)
- local shop=Instance.new("Model"); shop.Name="Meme Mart"; shop.Parent=map; part(shop,"Store",Vector3.new(42,20,32),Vector3.new(95,10,-100),Color3.fromRGB(75,205,193)); part(shop,"Roof",Vector3.new(46,3,36),Vector3.new(95,21,-100),Color3.fromRGB(255,111,65)); sign(shop,"MEME MART",Vector3.new(95,17,-117),Color3.fromRGB(45,90,170)); part(shop,"Counter",Vector3.new(24,4,3),Vector3.new(95,3,-91),Color3.fromRGB(120,75,46))
+ local shop=Instance.new("Model"); shop.Name="Meme Mart"; shop.Parent=map; part(shop,"Store",Vector3.new(42,20,32),Vector3.new(95,10,-100),Color3.fromRGB(75,205,193)); part(shop,"Roof",Vector3.new(46,3,36),Vector3.new(95,21,-100),Color3.fromRGB(255,111,65)); sign(shop,"MEME MART",Vector3.new(95,17,-117),Color3.fromRGB(45,90,170)); part(shop,"Counter",Vector3.new(24,4,3),Vector3.new(95,3,-91),Color3.fromRGB(120,75,46)); part(shop,"Shop Awning",Vector3.new(34,1,10),Vector3.new(95,15,-120),Color3.fromRGB(255,203,67),Enum.Material.Fabric); for _,x in ipairs({80,110}) do part(shop,"Awning Support",Vector3.new(1,8,1),Vector3.new(x,11,-117),Color3.fromRGB(133,79,45),Enum.Material.Wood) end
  local gas=Instance.new("Model"); gas.Name="Gas Station"; gas.Parent=map; part(gas,"Shop",Vector3.new(28,14,24),Vector3.new(155,7,110),Color3.fromRGB(241,242,228)); part(gas,"Canopy",Vector3.new(42,2,25),Vector3.new(155,18,105),Color3.fromRGB(255,79,79)); sign(gas,"GAS",Vector3.new(155,16,92),Color3.fromRGB(220,50,50))
  for i=1,3 do part(gas,"Pump",Vector3.new(5,7,4),Vector3.new(140+i*12,4,108),Color3.fromRGB(60,95,180)) end
  local park=Instance.new("Model"); park.Name="Pigeon Park"; park.Parent=map; part(park,"Park Circle",Vector3.new(88,.4,88),Vector3.new(-145,.3,-140),Color3.fromRGB(102,210,130),Enum.Material.Grass)
@@ -93,6 +103,11 @@ function MapBuilder.Build()
  -- Plaza, neighborhood greenery, and street furniture add color between landmarks.
  part(map,"Central Plaza",Vector3.new(42,.45,42),Vector3.new(0,.35,0),Color3.fromRGB(255,190,84),Enum.Material.Concrete)
  part(map,"Plaza Mosaic",Vector3.new(20,.15,20),Vector3.new(0,.68,0),Color3.fromRGB(88,205,224),Enum.Material.Neon)
+ local pergola=Instance.new("Model"); pergola.Name="Spawn Plaza Pergola"; pergola.Parent=map
+ for _,x in ipairs({-17,17}) do for _,z in ipairs({-17,17}) do part(pergola,"Pergola Post",Vector3.new(2,16,2),Vector3.new(x,8,z),Color3.fromRGB(128,76,48),Enum.Material.Wood) end end
+ for _,z in ipairs({-17,17}) do part(pergola,"Pergola Beam",Vector3.new(36,2,2),Vector3.new(0,16,z),Color3.fromRGB(168,107,62),Enum.Material.Wood) end
+ for _,x in ipairs({-17,17}) do part(pergola,"Pergola Beam",Vector3.new(2,2,36),Vector3.new(x,16,0),Color3.fromRGB(168,107,62),Enum.Material.Wood) end
+ for x=-12,12,8 do part(pergola,"Pergola Canopy Slat",Vector3.new(2,1,36),Vector3.new(x,16.5,0),Color3.fromRGB(220,165,85),Enum.Material.Wood) end
  local titleSign=Instance.new("Model"); titleSign.Name="BRAINROT MAYHEM Plaza Sign"; titleSign.Parent=map
  part(titleSign,"Sign Foot",Vector3.new(22,1,3),Vector3.new(0,1,-48),Color3.fromRGB(34,25,58),Enum.Material.Metal)
  for _,x in ipairs({-9,9}) do part(titleSign,"Sign Post",Vector3.new(1,13,1),Vector3.new(x,7,-48),Color3.fromRGB(255,220,75),Enum.Material.Metal) end
