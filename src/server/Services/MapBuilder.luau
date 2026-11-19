@@ -93,6 +93,22 @@ function MapBuilder.Build()
  -- Plaza, neighborhood greenery, and street furniture add color between landmarks.
  part(map,"Central Plaza",Vector3.new(42,.45,42),Vector3.new(0,.35,0),Color3.fromRGB(255,190,84),Enum.Material.Concrete)
  part(map,"Plaza Mosaic",Vector3.new(20,.15,20),Vector3.new(0,.68,0),Color3.fromRGB(88,205,224),Enum.Material.Neon)
+ local titleSign=Instance.new("Model"); titleSign.Name="BRAINROT MAYHEM Plaza Sign"; titleSign.Parent=map
+ part(titleSign,"Sign Foot",Vector3.new(22,1,3),Vector3.new(0,1,-48),Color3.fromRGB(34,25,58),Enum.Material.Metal)
+ for _,x in ipairs({-9,9}) do part(titleSign,"Sign Post",Vector3.new(1,13,1),Vector3.new(x,7,-48),Color3.fromRGB(255,220,75),Enum.Material.Metal) end
+ local titleBoard=part(titleSign,"BRAINROT MAYHEM",Vector3.new(22,7,1.2),Vector3.new(0,14,-48),Color3.fromRGB(255,55,135),Enum.Material.Neon)
+ local titleGui=Instance.new("SurfaceGui"); titleGui.Name="TitleSurface"; titleGui.Face=Enum.NormalId.Front; titleGui.SizingMode=Enum.SurfaceGuiSizingMode.PixelsPerStud; titleGui.PixelsPerStud=45; titleGui.Parent=titleBoard
+ local titleText=Instance.new("TextLabel"); titleText.Size=UDim2.fromScale(1,1); titleText.BackgroundTransparency=1; titleText.Text="BRAINROT\nMAYHEM"; titleText.TextColor3=Color3.fromRGB(255,239,99); titleText.TextStrokeColor3=Color3.fromRGB(91,24,143); titleText.TextStrokeTransparency=.15; titleText.TextScaled=true; titleText.Font=Enum.Font.FredokaOne; titleText.Parent=titleGui
+ -- Small market lane sits beside the plaza and makes the spawn district read as a lived-in street.
+ for i,x in ipairs({-16,16}) do local stall=Instance.new("Model"); stall.Name="Brainrot Market Stall"; stall.Parent=map; local z=31
+  part(stall,"Stall Counter",Vector3.new(12,3,6),Vector3.new(x,1.8,z),i==1 and Color3.fromRGB(255,104,104) or Color3.fromRGB(75,180,255),Enum.Material.Wood)
+  part(stall,"Striped Awning",Vector3.new(14,1,8),Vector3.new(x,5,z),i==1 and Color3.fromRGB(255,225,85) or Color3.fromRGB(255,120,190),Enum.Material.Fabric)
+  for _,dx in ipairs({-6,6}) do part(stall,"Awning Post",Vector3.new(.6,6,.6),Vector3.new(x+dx,3,z+3),Color3.fromRGB(112,68,43),Enum.Material.Wood) end
+ end
+ for i,pos in ipairs({Vector3.new(-29,1.2,31),Vector3.new(29,1.2,31),Vector3.new(-34,1.2,-28),Vector3.new(34,1.2,-28)}) do local crate=part(map,"Stacked Market Crate",Vector3.new(4,3,4),pos,({Color3.fromRGB(150,95,55),Color3.fromRGB(182,125,65)})[(i-1)%2+1],Enum.Material.Wood); crate.Orientation=Vector3.new(0,i*13,0) end
+ local fountain=Instance.new("Model"); fountain.Name="Pigeon Plaza Fountain"; fountain.Parent=map; local basin=part(fountain,"Stone Basin",Vector3.new(13,2,13),Vector3.new(0,1.5,-32),Color3.fromRGB(215,220,230),Enum.Material.Marble); basin.Shape=Enum.PartType.Cylinder
+ local water=part(fountain,"Fountain Water",Vector3.new(10,.6,10),Vector3.new(0,2.6,-32),Color3.fromRGB(65,205,255),Enum.Material.Glass); water.Shape=Enum.PartType.Cylinder
+ part(fountain,"Pigeon Statue",Vector3.new(2,6,2),Vector3.new(0,5.5,-32),Color3.fromRGB(255,211,85),Enum.Material.Metal)
  for _,pos in ipairs({Vector3.new(-45,0,-45),Vector3.new(45,0,-45),Vector3.new(-45,0,45),Vector3.new(45,0,45),Vector3.new(-150,0,35),Vector3.new(150,0,-35),Vector3.new(35,0,150),Vector3.new(-35,0,-150)}) do tree(map,pos.X,pos.Z,.8); flowerBed(map,pos.X+10,pos.Z,Color3.fromRGB(255,94,174)) end
  for _,pos in ipairs({Vector3.new(-30,0,-70),Vector3.new(30,0,-70),Vector3.new(-30,0,70),Vector3.new(30,0,70),Vector3.new(-170,0,35),Vector3.new(170,0,-35)}) do local bush=part(map,"Bright Bush",Vector3.new(9,5,7),pos+Vector3.new(0,2.5,0),Color3.fromRGB(74,190,77),Enum.Material.Grass); bush.Shape=Enum.PartType.Ball end
  for _,pos in ipairs({Vector3.new(-28,0,-28),Vector3.new(28,0,-28),Vector3.new(-28,0,28),Vector3.new(28,0,28)}) do part(map,"Street Lamp",Vector3.new(1,10,1),pos+Vector3.new(0,5,0),Color3.fromRGB(48,57,72),Enum.Material.Metal); local lamp=part(map,"Lamp Glow",Vector3.new(3,1,3),pos+Vector3.new(0,10,0),Color3.fromRGB(255,237,147),Enum.Material.Neon); local l=Instance.new("PointLight"); l.Color=lamp.Color; l.Range=20; l.Brightness=.7; l.Parent=lamp end
@@ -116,8 +132,11 @@ function MapBuilder.Build()
   local plotColors={Color3.fromRGB(92,211,255),Color3.fromRGB(255,128,169),Color3.fromRGB(255,211,81),Color3.fromRGB(141,237,132),Color3.fromRGB(180,133,255),Color3.fromRGB(255,151,91),Color3.fromRGB(89,230,198),Color3.fromRGB(255,112,104)}
   part(m,"Plot Floor",Vector3.new(48,1,48),center+Vector3.new(0,.1,0),plotColors[i]); for _,edge in ipairs({Vector3.new(0,2,-24),Vector3.new(0,2,24),Vector3.new(-24,2,0),Vector3.new(24,2,0)}) do part(m,"Bright Plot Border",Vector3.new(edge.X==0 and 48 or 1,4,edge.Z==0 and 48 or 1),center+edge,Color3.fromRGB(255,246,125),Enum.Material.Neon) end
   part(m,"Plot Banner Pole",Vector3.new(.7,11,.7),center+Vector3.new(19,5.5,-19),Color3.fromRGB(255,240,200),Enum.Material.Metal); part(m,"Plot Banner",Vector3.new(7,4,.5),center+Vector3.new(16,9,-19),Color3.fromRGB(255,88,146),Enum.Material.Neon)
+  local lamp=part(m,"Plot Street Lamp",Vector3.new(1,10,1),center+Vector3.new(-29,5,0),Color3.fromRGB(48,57,72),Enum.Material.Metal); local glow=part(m,"Plot Lamp Glow",Vector3.new(2,1,2),center+Vector3.new(-29,10,0),Color3.fromRGB(255,237,147),Enum.Material.Neon); local light=Instance.new("PointLight"); light.Color=glow.Color; light.Range=15; light.Brightness=.45; light.Parent=glow
+  part(m,"Plot Sidewalk Bench",Vector3.new(10,1.5,3),center+Vector3.new(0,1.2,29),Color3.fromRGB(130,78,48),Enum.Material.Wood)
+  for _,dx in ipairs({-3.5,3.5}) do part(m,"Bench Leg",Vector3.new(.7,2,.7),center+Vector3.new(dx,.8,29),Color3.fromRGB(72,75,84),Enum.Material.Metal) end
   local slots=Instance.new("Folder"); slots.Name="Slots"; slots.Parent=m
-  for s=1,8 do local xx=((s-1)%4-1.5)*10; local zz=(math.floor((s-1)/4)-.5)*15; local pad=part(slots,"Slot"..s,Vector3.new(8,.25,8),center+Vector3.new(xx,.8,zz),Color3.fromRGB(255,222,90)); pad:SetAttribute("Slot",s) end
+  for s=1,8 do local xx=((s-1)%4-1.5)*10; local zz=(math.floor((s-1)/4)-.5)*15; local pad=part(slots,"Slot"..s,Vector3.new(.35,8.6,8.6),center+Vector3.new(xx,.8,zz),Color3.fromRGB(255,222,90),Enum.Material.Neon); pad.Shape=Enum.PartType.Cylinder; pad.Orientation=Vector3.new(0,0,90); pad:SetAttribute("Slot",s); local inset=part(slots,"Slot Inset"..s,Vector3.new(.4,7.4,7.4),center+Vector3.new(xx,1.02,zz),Color3.fromRGB(66,50,92),Enum.Material.SmoothPlastic); inset.Shape=Enum.PartType.Cylinder; inset.Orientation=Vector3.new(0,0,90); inset:SetAttribute("Slot",s) end
   local spawn=part(m,"Owner Spawn",Vector3.new(4,1,4),center+Vector3.new(0,1,0),Color3.fromRGB(255,255,255)); spawn.Transparency=1; spawn.CanCollide=false
  end
  -- Five touchable secret buttons have unique coordinates and can only be claimed once per player.

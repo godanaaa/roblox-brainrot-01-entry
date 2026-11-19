@@ -10,6 +10,7 @@ end
 function Shop.Init(ctx) Shop.Context=ctx; Shop.Owned={}; Shop.HeadConnection={}; game:GetService("Players").PlayerAdded:Connect(function(player) task.spawn(function() for _=1,300 do local data=ctx.Data.Data[player]; if data then Shop.Owned[player]=data.Cosmetics or {}; if Shop.Owned[player]["Giant Head"] then ensureGiantHead(player) end; return end; task.wait(.1) end end) end); ctx.Remotes.Buy.OnServerEvent:Connect(function(player,item)
  if type(item)~="string" then return end
  if item=="Base Lock" then if ctx.Base.Lock(player) then ctx.Announce.To(player,"BASE LOCKED • 60 seconds") end; return end
+ if string.sub(item,1,8)=="Upgrade:" then ctx.Upgrade.BuyUpgrade(player,string.sub(item,9)); return end
  if item=="Next Slot" then if ctx.Base.Expand(player) then ctx.Announce.To(player,"Your base expanded!") end; return end
  if item=="Transformation" then if ctx.Coin.Spend(player,150) then ctx.Transform.Apply(player,Config.Transformations[math.random(1,#Config.Transformations)],30) end; return end
  if string.sub(item,1,4)=="Pet:" then local name=string.sub(item,5); local price=Config.PetPrices[name]; if not price or not table.find(Config.Pets,name) then return end; ctx.Pet.Owned[player]=ctx.Pet.Owned[player] or {}; if ctx.Pet.Owned[player][name] then ctx.Pet.Equip(player,name) elseif ctx.Coin.Spend(player,price) then ctx.Pet.Owned[player][name]=true; ctx.Pet.Equip(player,name); ctx.Announce.To(player,name.." pet unlocked!") end; return end
