@@ -24,6 +24,21 @@ Config.Brainrots = {
  {Name="Supreme Eternal Sandwich Bag",Rarity="MYTHIC",Rate=1000,Kind="Loading"},{Name="The Unplugged Universe",Rarity="MYTHIC",Rate=1100,Kind="Buffering"},{Name="Grandma's Final Password",Rarity="MYTHIC",Rate=1250,Kind="Printer"},
 }
 Config.BrainrotBuyPrices={ ["Baron von Banana"]=1000,["Madame Lampshade"]=1500,["General Sock"]=2000,["Doctor Doorknob"]=2200,["Lady Loo Roll"]=2700,["The Fridge King"]=5000,["Countess Washing Machine"]=6500,["Sultan of the Sofa"]=8000,["Grandma's WiFi Router"]=20000,["The Almighty Printer"]=30000,["Duke of Dishwashers"]=6000,["Princess Pillow"]=8000,["Emperor of Escalators"]=14000,["Queen of Queues"]=17000,["The Last Slice of Pizza"]=24000 }
+-- Every catalog entry is purchasable. Price bands follow rarity, with a small
+-- progression inside each band so adjacent entries do not share one price.
+local priceBands={COMMON={50,150},UNCOMMON={200,600},RARE={1000,3000},EPIC={5000,17000},LEGENDARY={20000,40000},MYTHIC={50000,100000}}
+local rarityCounts={}
+for _,brainrot in ipairs(Config.Brainrots) do
+ local band=priceBands[brainrot.Rarity]
+ local ordinal=(rarityCounts[brainrot.Rarity] or 0)+1
+ rarityCounts[brainrot.Rarity]=ordinal
+ if Config.BrainrotBuyPrices[brainrot.Name]==nil then
+  local total=0
+  for _,candidate in ipairs(Config.Brainrots) do if candidate.Rarity==brainrot.Rarity then total+=1 end end
+  local fraction=total>1 and (ordinal-1)/(total-1) or 0
+  Config.BrainrotBuyPrices[brainrot.Name]=math.floor(band[1]+(band[2]-band[1])*fraction)
+ end
+end
 Config.Mutations={Neon={Multiplier=2,Color=Color3.fromRGB(0,255,235)},Golden={Multiplier=3,Color=Color3.fromRGB(255,205,30)},Shadow={Multiplier=5,Color=Color3.fromRGB(75,30,125)},Diamond={Multiplier=3,Color=Color3.fromRGB(165,235,255)},Rainbow={Multiplier=6,Color=Color3.fromRGB(255,70,220)}}
 Config.Shop={ ["Base Lock"]={Price=100},["Giant Head"]={Price=500},["Banana Sword"]={Price=400},["Chicken Pet"]={Price=300},["Toilet Mount"]={Price=800},["Meme Face"]={Price=200},["Exploding Backpack"]={Price=350},["Funny Trail"]={Price=250},["Silly Animations"]={Price=300},Transformation={Price=150} }
 Config.Pets={"Chicken","Banana","Potato","Toilet","Mini NPC","Giant Hamster","Dancing Frog","Floating Head"}
